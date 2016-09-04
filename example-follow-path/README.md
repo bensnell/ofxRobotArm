@@ -18,8 +18,10 @@ To get started, make sure you've gone through the [Basic Move Example](https://g
 
 Once you have an IP address for your robot, all you should need to do is modify one line of code in `example-basic-move` to connect to your robot:
    - On `line 40` replace the default ip address with your robot's ip address in `robot.setup()`
-   
-After that, run the project. You should see your robot positioned properly of the left side of the screen.
+
+After that, set your project to **Release Mode**. This addon will not work in Debug Mode.
+
+Finally, run the project. You should see your robot positioned properly of the left side of the screen.
 Also, you should see that the Robot's FPS is running about 120fps in the lower left hand corner of the GUI. If you don't see a robot in the GUI, or if the Robot's FPS says 0, jump down to the Troubleshooting section.
 
 ##Navigating the UI

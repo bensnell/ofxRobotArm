@@ -73,6 +73,7 @@ We've included a tutorial for getting started with `ofxRobotArm` [here](/example
 3. After that, move on to the geometry examples: [`example-follow-path`] (/example-follow-path) and [`example-follow-surface`] (/example-follow-surface).
 4. The motion capture examples [`example-follow-mocap`](/example-follow-mocap) and [`example-follow-mocap-path`](/example-follow-mocap-path) are fairly advanced and require very specific hardware configurations to run properly. A more common motion capture sensor, like a Kinect, could be used in place of an OptiTrack system to get similar results.
 
+**NOTE:** This addon does *not* work in Debug Mode. Please run your project in Release Mode instead.
 
 ##Licensing
 `ofxRobotArm` is licensed for **NON-COMMERCIAL USE ONLY**. 
