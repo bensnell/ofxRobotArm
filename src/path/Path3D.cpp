@@ -286,7 +286,7 @@ ofPolyline Path3D::buildPath(){
         n1.tilt(2);
         n2.roll(1);
         
-        ofPoint p = n2.getGlobalPosition().rotate(90, ofVec3f(1,0,0));
+        ofPoint p = toOf(n2.getGlobalPosition()).getRotated(90, ofVec3f(1,0,0));
         
         // and point to path
         temp.addVertex(p);

@@ -31,8 +31,8 @@ public:
     
     vector<Path3D> paths;
     
-    void transform(ofVec3f p);
-    void transform(ofMatrix4x4 m44);
+    void transform(glm::vec3 p);
+    void transform(glm::mat4 m44);
   
 private:
     void project(ofMesh & mesh, vector<ofPolyline> &paths2D, vector<ofPolyline> &paths, float srfOffset);

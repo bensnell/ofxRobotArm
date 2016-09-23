@@ -195,9 +195,9 @@ void WorkSurface3D::project(ofMesh & mesh, vector<ofPolyline> &paths2D, vector<o
                     auto face = mesh.getFace(i);
                     
                     // find the distance between our toolpath point and the mesh face
-                    ofVec3f facePos = (mesh.getFace(i).getVertex(0)+mesh.getFace(i).getVertex(1)+mesh.getFace(i).getVertex(2))/3;
-                    ofVec3f face2toolPt = v - facePos;
-                    float projectedDist = face2toolPt.dot(face.getFaceNormal().getNormalized());
+                     glm::vec3 facePos = (mesh.getFace(i).getVertex(0)+mesh.getFace(i).getVertex(1)+mesh.getFace(i).getVertex(2))/3;
+                    glm::vec3 face2toolPt = v - facePos;
+                    float projectedDist = dot(face2toolPt, face.getFaceNormal());
                     
                     // use the distance as the length of a vertical projection vector
                     ofVec3f length = ofVec3f(0,0,-projectedDist - srfOffset);
@@ -223,7 +223,7 @@ void WorkSurface3D::project(ofMesh & mesh, vector<ofPolyline> &paths2D, vector<o
     
 }
 
-void WorkSurface3D::transform(ofVec3f p){
+void WorkSurface3D::transform(glm::vec3 p){
 
     for (auto &v: surfaceMesh.getVertices()){
         v += p;
@@ -237,17 +237,17 @@ void WorkSurface3D::transform(ofVec3f p){
     }
 }
 
-void WorkSurface3D::transform(ofMatrix4x4 m44){
+void WorkSurface3D::transform(glm::mat4 m44){
     
     for (auto &v: surfaceMesh.getVertices()){
-        v += m44.getTranslation();
-        v  = v * m44.getRotate();
+        v += toGlm(toOf(m44).getTranslation());
+        v  = (glm::vec4(v,0) * m44).xyz();
     }
     for (auto &path : paths){
         // move the path
         for (auto &v : path.path.getVertices()){
-            v += m44.getTranslation();
-            v  = v * m44.getRotate();
+            v += toOf(m44).getTranslation();
+            v  = (glm::vec4(v,0) * m44).xyz();
         }
         // update the perp frames
         path.buildPerpFrames(path.path);
