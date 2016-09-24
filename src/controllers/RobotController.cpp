@@ -6,9 +6,18 @@ RobotController::RobotController(){
 }
 
 RobotController::~RobotController(){
-    
+    robotParams = NULL;
+    delete robotParams;
     
 }
+
+void RobotController::setup(RobotParameters * params){
+    robotParams = params;
+    robot.setup(robotParams->ipAddress,0, 1);
+    robot.start();
+    movement.setup();
+}
+
 
 
 void RobotController::setup(RobotParameters & params){
@@ -72,8 +81,6 @@ ofNode RobotController::getTCPNode(){
 void RobotController::updateData(){
     // pass the current joints from the robot to the kinematic solver
     robotParams->currentJointPos = robot.getJointPositions();
-
-//    robotParams->calcTCPOrientation = robot.getCalculatedTCPOrientation();
     
     for(int i = 0; i < robotParams->currentJointPos.size(); i++){
         robotParams->jointPos[i] = (float)robotParams->currentJointPos[i];

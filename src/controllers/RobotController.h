@@ -19,6 +19,7 @@ public:
     /// \brief creates and connects to a new robot using a default IP Address
     /// \params params default parameters for the robot & GUI
     void setup(RobotParameters & params);
+    void setup(RobotParameters * params);
     
     /// \brief creates and connects to a new robot
     /// \params ipAddress ipAddress of the robot
