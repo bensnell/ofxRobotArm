@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxURDriver.h"
 #include "UR5KinematicModel.h"
+#include "ofxGuiExtended.h"
 class ofApp : public ofBaseApp{
     
 public:
@@ -23,7 +24,12 @@ public:
     void gotMessage(ofMessage msg);
     
     
+    ofxGui gui;
     UR5KinematicModel model;
     ofEasyCam cam;
-    
+    ofNode tcpNode;
+    ofNode target;
+    ofNode drawNode;
+    ofNode center;
+    bool bRun;
 };
