@@ -12,31 +12,35 @@ void ofApp::setup(){
     //    panel3->setPosition(panel2->getShape().getTopRight()+ofPoint(10, 0));
     model.setup();
     cam.lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1));
-    tcpNode.setPosition(model.tcpNode.getGlobalPosition()*10);
+    tcpNode.setPosition(model.tcpNode.getGlobalPosition());
     tcpNode.setOrientation(model.tcpNode.getOrientationQuat());
     bRun = false;
     target.setPosition(glm::vec3(0.25, 0.25, 0.25));
     center.setPosition(0, 0, 0);
     tcpNode.setParent(center);
+    bLoop = true;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     if(bRun){
-//        tcpNode.orbitDeg(sin(ofGetElapsedTimef()*0.01)*180, sin(ofGetElapsedTimef()*0.01)*180, 0.2, target);
-        tcpNode.setPosition(glm::lerp(glm::vec3(0.5, 0, 0), glm::vec3(0, 0.0, 0.5), glm::vec3(abs(sin(ofGetElapsedTimef()*0.0412)))));
-//        tcpNode.lookAt(glm::vec3(100, 0, 0), glm::vec3(0, 0, 1));
+        if(bLoop){
+            tcpNode.setPosition(glm::lerp(model.tcpNode.getGlobalPosition(), glm::vec3(0, 0.5, 0.5), glm::vec3(abs(sin(ofGetElapsedTimef()*0.0412)))));
+        }else{
+           
+            tcpNode.setOrientation(model.tcpNode.getOrientationQuat());
+        }
         model.update(tcpNode);
         
         drawNode.setGlobalPosition(tcpNode.getPosition()*1000);
         drawNode.setGlobalOrientation(tcpNode.getOrientationQuat());
-//        cout<<"drawNode========"<<endl;
-//        cout<<tcpNode.getPosition()<<endl;
+        //        cout<<"drawNode========"<<endl;
+        //        cout<<tcpNode.getPosition()<<endl;
         
     }
     
     
-
+    
 }
 
 //--------------------------------------------------------------
@@ -45,15 +49,28 @@ void ofApp::draw(){
     cam.begin();
     model.draw();
     drawNode.draw();
-//    ofPushMatrix();
+    //    ofPushMatrix();
     ofDrawBox(glm::vec3(0.25, 0.25, 0.25)*1000, 50);
-//    ofPopMatrix();
+    //    ofPopMatrix();
     cam.end();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    bRun = !bRun;
+    if(key == ' '){
+        bRun = !bRun;
+    }
+    if(key == 'l'){
+        bLoop = !bLoop;
+    }
+    
+    
+    if(key == ']'){
+        tcpNode.setPosition(model.tcpNode.getGlobalPosition()+glm::vec3(0, 0, 0.01));
+    }
+    if(key == '['){
+        tcpNode.setPosition(model.tcpNode.getGlobalPosition()+glm::vec3(0, 0, -0.2));
+    }
 }
 
 //--------------------------------------------------------------

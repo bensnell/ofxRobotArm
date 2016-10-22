@@ -32,4 +32,5 @@ public:
     ofNode drawNode;
     ofNode center;
     bool bRun;
+    bool bLoop;
 };
